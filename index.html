@@ -6,7 +6,6 @@
     <title>Receitas Sustentáveis</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,28 +80,24 @@
             box-shadow: 0 -10px 30px rgba(2, 44, 34, 0.8);
         }
 
-        /* Fake Action Buttons */
-        .action-buttons {
-            position: fixed;
+        /* Share Button */
+        .share-btn-container {
+            position: absolute;
+            top: 1rem;
             right: 1rem;
-            bottom: 4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            z-index: 40;
-            transition: opacity 0.3s;
+            z-index: 20;
         }
         
         .action-btn {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: rgba(2, 44, 34, 0.85);
             backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            border: 1px solid rgba(52, 211, 153, 0.4);
             color: #fff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             transition: all 0.2s;
@@ -112,23 +107,6 @@
             transform: scale(0.9);
             background: #34d399;
             color: #022c22;
-        }
-        
-        .action-btn.liked {
-            color: #ef4444;
-            border-color: #ef4444;
-        }
-        .action-btn.liked svg {
-            fill: #ef4444;
-        }
-        
-        .action-label {
-            font-size: 0.75rem;
-            text-align: center;
-            margin-top: 5px;
-            font-weight: 600;
-            color: #a7f3d0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         /* Swipe Up Indicator */
@@ -164,14 +142,14 @@
         .onboarding-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(2, 44, 34, 0.9);
+            background: rgba(2, 44, 34, 0.95);
             backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.5s;
+            transition: opacity 0.4s ease-out;
         }
         
         .hand-icon {
@@ -216,7 +194,6 @@
 
     <!-- Onboarding Tutorial -->
     <div class="onboarding-overlay" id="onboarding">
-        <!-- Título agora aparece no onboarding -->
         <h1 class="text-[1.8rem] font-extrabold tracking-widest text-white uppercase drop-shadow-md text-center px-4 mb-16">
             Receitas Sustentáveis
             <div class="w-16 h-[3px] bg-emerald-500 mx-auto mt-4 rounded-full"></div>
@@ -231,32 +208,22 @@
         </button>
     </div>
 
-    <!-- Fixed Action Buttons -->
-    <div class="action-buttons" id="actionButtons">
-        <div onclick="toggleLike(this)">
-            <div class="action-btn">
-                <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </div>
-            <div class="action-label">Curtir</div>
-        </div>
-        <div onclick="shareRecipe()">
-            <div class="action-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-            </div>
-            <div class="action-label">Compartilhar</div>
-        </div>
-    </div>
-
     <div class="feed-container" id="feed">
 
         <article class="feed-item recipe-card" id="recipe-0">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Doce de casca de laranja', 0)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-536191315.jpg" alt="Doce de casca de laranja" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-536191315.jpg" alt="Doce de casca de laranja" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Doce de casca de laranja
                 </h2>
                 
@@ -275,7 +242,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Corte as cascas em tirinhas e deixe de molho, trocando a água a cada duas horas. Derreta o açúcar no fogo e acrescente as cascas já enxutas. Quando começar a engrossar a calda, acrescente o farelo de trigo. Mexa até açucarar.</p>
                     </div>
                 </div>
@@ -289,13 +256,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-1">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Suco de casca de abacaxi e capim-cidreira', 1)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-403419514.jpg" alt="Suco de casca de abacaxi e capim-cidreira" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-403419514.jpg" alt="Suco de casca de abacaxi e capim-cidreira" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Suco de casca de abacaxi e capim-cidreira
                 </h2>
                 
@@ -314,7 +287,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Bata no liquidificador as cascas de abacaxi, o capim cidreira e a água. Coe. Adoce se for necessário e sirva.</p>
                     </div>
                 </div>
@@ -328,13 +301,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-2">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Arroz cremoso de casca de abóbora', 2)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-757985803.jpg" alt="Arroz cremoso de casca de abóbora" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-757985803.jpg" alt="Arroz cremoso de casca de abóbora" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Arroz cremoso de casca de abóbora
                 </h2>
                 
@@ -353,7 +332,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Refogue a cebola em uma panela. Adicione a casca de abóbora ralada e a água e deixe cozinhar por 15 minutos. Acrescente a abóbora e refogue bem. Aos poucos, coloque o arroz já cozido, alternando com o creme de leite e o requeijão. Por último, tempere com sal a gosto.</p>
                     </div>
                 </div>
@@ -367,13 +346,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-3">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Creme de folha de couve-flor', 3)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-485243230.jpg" alt="Creme de folha de couve-flor" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-485243230.jpg" alt="Creme de folha de couve-flor" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Creme de folha de couve-flor
                 </h2>
                 
@@ -392,7 +377,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Refogue e acrescente as folhas de couve-flor bem lavadas e picadas. Em uma tigela, incorpore delicadamente a farinha ao leite e junte o queijo ralado e a água. Adicione ao refogado e deixe o creme encorpar. Tempere com sal a gosto. Sirva quente.</p>
                     </div>
                 </div>
@@ -406,13 +391,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-4">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Bolo de Casca de Banana', 4)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1066408013.jpg" alt="Bolo de Casca de Banana" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1066408013.jpg" alt="Bolo de Casca de Banana" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Bolo de Casca de Banana
                 </h2>
                 
@@ -431,7 +422,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Descasque as bananas, corte o fruto em rodelas finas e separe em um recipiente. Em seguida, retire as extremidades das cascas e, com a parte que sobrou, corte ao meio e coloque em um liquidificador. Acrescente o leite e bata até a mistura ficar homogênea. Em uma batedeira, coloque as claras dos ovos e bata até ficar em ponto de neve. Depois, acrescente as gemas, margarina e o açúcar. Em seguida, bata os ingredientes até ficar uma mistura homogênea. Acrescente o leite batido com as cascas e a farinha de rosca e o fermento. Unte a forma com margarina e farinha de trigo. Por fim, basta levar ao forno a 180 graus por 30 minutos. Para fazer a calda, pegue as bananas picadas em rodelas, adicione meia xícara de chá de açúcar e uma xícara de chá de água. Em seguida, aqueça os ingredientes no fogo. Adicione a calda após tirar o bolo do forno.</p>
                     </div>
                 </div>
@@ -445,13 +436,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-5">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Caponata de casca de banana', 5)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-319941557.jpg" alt="Caponata de casca de banana" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-319941557.jpg" alt="Caponata de casca de banana" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Caponata de casca de banana
                 </h2>
                 
@@ -470,7 +467,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Cozinhe a banana verde em panela de pressão por 10 min. Retire logo após o cozimento. Pique a casca da banana e reserve. Em uma travessa, disponha o tomate, pimentão vermelho, pimentão amarelo, os dentes de alho, as casca da banana e as passas. Tempere com azeite e sal e leve para assar. Ao retirar do forno, decore com amêndoas e manjericão.</p>
                     </div>
                 </div>
@@ -484,13 +481,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-6">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Torrada com abacate e semente de abóbora', 6)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1105043105.jpg" alt="Torrada com abacate e semente de abóbora" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1105043105.jpg" alt="Torrada com abacate e semente de abóbora" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Torrada com abacate e semente de abóbora
                 </h2>
                 
@@ -509,7 +512,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Passe o requeijão na fatia de pão e tempere com sal e pimenta a gosto. Em seguida, acrescente rodelas de abacate. Jogue por cima fio de azeite e as sementes de abóbora.</p>
                     </div>
                 </div>
@@ -523,13 +526,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-7">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Brigadeiro de casca de banana', 7)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1317586310.jpg" alt="Brigadeiro de casca de banana" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1317586310.jpg" alt="Brigadeiro de casca de banana" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Brigadeiro de casca de banana
                 </h2>
                 
@@ -548,7 +557,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Numa panela, coloque as cascas de banana com o açúcar e cozinhe até ficar pastoso. Acrescente os demais ingredientes, exceto o chocolate granulado, e mexa até desprender do fundo da panela. Coloque num prato e deixe esfriar. Faça bolinhas, passe-as no chocolate granulado e coloque-as em forminhas apropriadas.</p>
                     </div>
                 </div>
@@ -562,13 +571,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-8">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Geleia de casca de mamão', 8)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1334167109.jpg" alt="Geleia de casca de mamão" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1334167109.jpg" alt="Geleia de casca de mamão" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Geleia de casca de mamão
                 </h2>
                 
@@ -587,7 +602,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Bata as cascas com a água no liquidificador. Leve ao fogo com o açúcar, a canela e os cravos, cozinhando em fogo brando e mexendo sempre. Estará pronto quando tiver o ponto de geléia.</p>
                     </div>
                 </div>
@@ -601,13 +616,19 @@
         </article>
     
         <article class="feed-item recipe-card" id="recipe-9">
+            <div class="share-btn-container">
+                <button class="action-btn" onclick="shareRecipe('Doce de casca de banana', 9)" aria-label="Compartilhar Receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+
             <div class="image-container">
-                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1477319021.jpg" alt="Doce de casca de banana" class="bg-image" loading="lazy" crossorigin="anonymous">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w320h200/2019/08/FEA/64211_shutterstock-1477319021.jpg" alt="Doce de casca de banana" class="bg-image" loading="lazy">
                 <div class="image-fade"></div>
             </div>
             
             <div class="content-area">
-                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-12">
+                <h2 class="text-[2.2rem] leading-tight font-extrabold text-white mb-6 drop-shadow-lg pr-4">
                     Doce de casca de banana
                 </h2>
                 
@@ -626,7 +647,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 21-5-5-5 5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18z"/></svg>
                         Modo de Preparo
                     </h3>
-                    <div class="font-medium pr-8">
+                    <div class="font-medium pr-4">
                         <p class="mb-4 text-emerald-50 leading-relaxed text-[1.1rem]">Numa panela média, junte as cascas de banana e cubra com água. Leve ao fogo médio e deixe ferver por cinco minutos ou até ficarem macias. Escorra-as e corte-as em pedaços. Bata no liquidificador até obter um purê. Coloque novamente na panela e junte os demais ingredientes. Leve ao fogo médio, com a panela semitampada, mexendo às vezes, por cerca de 35 minutos ou até a mistura soltar do fundo. Retire do fogo e deixe esfriar.</p>
                     </div>
                 </div>
@@ -642,83 +663,63 @@
     </div>
 
     <script>
+        const onboarding = document.getElementById('onboarding');
+
         // Dismiss onboarding
         function dismissOnboarding() {
-            const el = document.getElementById('onboarding');
-            el.classList.add('hide');
+            if (onboarding.classList.contains('hide')) return;
+            onboarding.classList.add('hide');
             setTimeout(() => {
-                el.style.display = 'none';
+                onboarding.style.display = 'none';
             }, 500);
         }
 
-        // Like Button
-        function toggleLike(element) {
-            const btn = element.querySelector('.action-btn');
-            btn.classList.toggle('liked');
-        }
+        // Swipe up to dismiss onboarding
+        let startY = 0;
+        onboarding.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        onboarding.addEventListener('touchmove', (e) => {
+            const currentY = e.touches[0].clientY;
+            if (startY - currentY > 50) { // Swiped up 50px
+                dismissOnboarding();
+            }
+        }, { passive: true });
         
-        // Share Button (Screenshot functionality)
-        async function shareRecipe() {
-            const buttons = document.getElementById('actionButtons');
-            buttons.style.opacity = '0'; // Hide buttons during screenshot
+        // Share Button Native Link
+        function shareRecipe(title, index) {
+            // Base URL without hash
+            const baseUrl = window.location.href.split('#')[0];
+            const recipeUrl = baseUrl + '#recipe-' + index;
+            const shareText = `Olha essa receita de ${title} que encontrei, acesse: ${recipeUrl}`;
             
-            try {
-                // Find currently visible recipe
-                const feed = document.getElementById('feed');
-                const scrollPos = feed.scrollTop;
-                const items = document.querySelectorAll('.feed-item');
-                let activeItem = items[0];
-                
-                for(let item of items) {
-                    if (Math.abs(item.offsetTop - scrollPos) < window.innerHeight / 2) {
-                        activeItem = item;
-                        break;
-                    }
-                }
-                
-                // Use html2canvas to take screenshot
-                const canvas = await html2canvas(activeItem, {
-                    useCORS: true,
-                    scale: 2,
-                    backgroundColor: '#022c22'
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Receitas Sustentáveis',
+                    text: shareText
+                }).catch((err) => console.log("Compartilhamento cancelado", err));
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Link copiado para a área de transferência!');
+                }).catch(err => {
+                    alert('Falha ao copiar link.');
                 });
-                
-                canvas.toBlob(async (blob) => {
-                    const file = new File([blob], "receita-sustentavel.png", { type: "image/png" });
-                    
-                    // Try Web Share API first
-                    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                        try {
-                            await navigator.share({
-                                title: 'Receitas Sustentáveis',
-                                text: 'Olha essa receita incrível que eu encontrei!',
-                                files: [file]
-                            });
-                        } catch(e) {
-                            console.log("Sharing cancelled or failed", e);
-                            downloadFallback(canvas);
-                        }
-                    } else {
-                        // Fallback to direct download
-                        downloadFallback(canvas);
-                    }
-                }, "image/png");
-            } catch (err) {
-                console.error("Error generating screenshot: ", err);
-                alert("Não foi possível gerar a imagem. Tente compartilhar o link do site!");
-            } finally {
-                buttons.style.opacity = '1';
             }
         }
-        
-        function downloadFallback(canvas) {
-            const link = document.createElement('a');
-            link.download = 'receita-sustentavel.png';
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-            alert("A receita foi salva como imagem no seu dispositivo!");
-        }
 
+        // Deep linking - scroll to recipe on load
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target) {
+                    // Small delay to ensure render
+                    setTimeout(() => {
+                        target.scrollIntoView({behavior: "instant"});
+                    }, 100);
+                }
+            }
+        });
     </script>
 </body>
 </html>
