@@ -736,14 +736,14 @@
         }
 
         // Swipe up to dismiss onboarding
-        let startY = 0;
+        let onboardStartY = 0;
         onboarding.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
+            onboardStartY = e.touches[0].clientY;
         }, { passive: true });
 
-        onboarding.addEventListener('touchmove', (e) => {
-            const currentY = e.touches[0].clientY;
-            if (startY - currentY > 50) { // Swiped up 50px
+        onboarding.addEventListener('touchend', (e) => {
+            const currentY = e.changedTouches[0].clientY;
+            if (onboardStartY - currentY > 40) { // Swiped up 40px
                 dismissOnboarding();
             }
         }, { passive: true });
@@ -768,6 +768,33 @@
                 });
             }
         }
+
+        
+        // Fix for trapped scrolling (iOS Safari / Mobile)
+        document.querySelectorAll('.slide-scroll-area').forEach((area, index) => {
+            let startY = 0;
+            let isAtTop = true;
+            let isAtBottom = false;
+
+            area.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+                isAtTop = area.scrollTop <= 5;
+                isAtBottom = Math.ceil(area.scrollTop + area.clientHeight) >= area.scrollHeight - 5;
+            }, { passive: true });
+
+            area.addEventListener('touchend', (e) => {
+                const endY = e.changedTouches[0].clientY;
+                const diffY = startY - endY;
+
+                if (diffY > 50 && isAtBottom) {
+                    const nextSlide = document.getElementById('recipe-' + (index + 1));
+                    if (nextSlide) nextSlide.scrollIntoView({ behavior: 'smooth' });
+                } else if (diffY < -50 && isAtTop) {
+                    const prevSlide = document.getElementById('recipe-' + (index - 1));
+                    if (prevSlide) prevSlide.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, { passive: true });
+        });
 
         // Deep linking - scroll to recipe on load
         window.addEventListener('load', () => {
