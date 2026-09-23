@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Livro de Receitas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcf9f2;
+            --text-main: #2d3748;
+            --text-accent: #718096;
+            --accent: #d97706;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overscroll-behavior-y: none;
+        }
+        .recipe-title {
+            font-family: 'Lora', serif;
+        }
+        /* Mobile first snap scrolling */
+        .recipe-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+        .recipe-card {
+            scroll-snap-align: start;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            flex-shrink: 0;
+        }
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-overlay {
+            position: absolute;
+            bottom: -2px; /* Fix for slight gaps */
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg-color) 0%, transparent 100%);
+        }
+        .content-wrapper {
+            flex: 1;
+            padding: 0 1.5rem 3rem 1.5rem;
+            margin-top: -3rem;
+            z-index: 10;
+            position: relative;
+            background: linear-gradient(to bottom, transparent 0%, var(--bg-color) 3rem, var(--bg-color) 100%);
+            overflow-y: auto;
+        }
+        .recipe-title {
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #1a202c;
+            font-weight: 700;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin-left: 1rem;
+        }
+        .ingredients-list {
+            margin-bottom: 2.5rem;
+            padding-left: 0;
+            list-style: none;
+        }
+        .ingredients-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .ingredients-list li::before {
+            content: '•';
+            color: var(--accent);
+            position: absolute;
+            left: 0.5rem;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        .instructions-text p {
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            color: #4a5568;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--accent);
+            opacity: 0.7;
+            z-index: 20;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+        .hidden-indicator {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="recipe-container" id="container">
+
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-536191315.jpg" alt="Doce de casca de laranja" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Doce de casca de laranja</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>Casca de 2 laranjas</li><li>2 colheres de sopa de açúcar</li><li>2 colheres de sopa de farelo de trigo torrado</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Corte as cascas em tirinhas e deixe de molho, trocando a água a cada duas horas. Derreta o açúcar no fogo e acrescente as cascas já enxutas. Quando começar a engrossar a calda, acrescente o farelo de trigo. Mexa até açucarar.</p>
+                </div>
+            </div>
+            
+        <div class="scroll-indicator" id="indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+        
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-403419514.jpg" alt="Suco de casca de abacaxi e capim-cidreira" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Suco de casca de abacaxi e capim-cidreira</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>Casca de 1 abacaxi</li><li>1 xícara de chá de capim cidreira</li><li>1 litro de água</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Bata no liquidificador as cascas de abacaxi, o capim cidreira e a água. Coe. Adoce se for necessário e sirva.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-757985803.jpg" alt="Arroz cremoso de casca de abÃ³bora" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Arroz cremoso de casca de abÃ³bora</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>1 cebola picada</li><li>Cascas de 1 abóbora</li><li>1 xícara de água</li><li>3 xícaras de arroz cozido</li><li>1 xícara de abóbora picada</li><li>1/2 caixinha de creme de leite</li><li>1/2 copo de requeijão</li><li>sal a gosto</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Refogue a cebola em uma panela. Adicione a casca de abóbora ralada e a água e deixe cozinhar por 15 minutos. Acrescente a abóbora e refogue bem. Aos poucos, coloque o arroz já cozido, alternando com o creme de leite e o requeijão. Por último, tempere com sal a gosto.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-485243230.jpg" alt="Creme de folha de couve-flor" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Creme de folha de couve-flor</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>1 cebola picada</li><li>4 xícaras de folhas de couve-flor</li><li>1 colher de farinha de trigo</li><li>1 xícara de leite</li><li>1 colher de queijo ralado</li><li>1 xícara de água</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Refogue e acrescente as folhas de couve-flor bem lavadas e picadas. Em uma tigela, incorpore delicadamente a farinha ao leite e junte o queijo ralado e a água. Adicione ao refogado e deixe o creme encorpar. Tempere com sal a gosto. Sirva quente.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-1066408013.jpg" alt="Bolo de Casca de Banana" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Bolo de Casca de Banana</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>4 bananas com casca</li><li>2 xícaras de chá de leite</li><li>2 ovos</li><li>2 colheres de sopa de margarina</li><li>2 xícaras de chá de açúcar</li><li>3 xícaras de chá de farinha de rosca</li><li>1 colher de fermento</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Descasque as bananas, corte o fruto em rodelas finas e separe em um recipiente. Em seguida, retire as extremidades das cascas e, com a parte que sobrou, corte ao meio e coloque em um liquidificador. Acrescente o leite e bata até a mistura ficar homogênea. Em uma batedeira, coloque as claras dos ovos e bata até ficar em ponto de neve. Depois, acrescente as gemas, margarina e o açúcar. Em seguida, bata os ingredientes até ficar uma mistura homogênea. Acrescente o leite batido com as cascas e a farinha de rosca e o fermento. Unte a forma com margarina e farinha de trigo. Por fim, basta levar ao forno a 180 graus por 30 minutos. Para fazer a calda, pegue as bananas picadas em rodelas, adicione meia xícara de chá de açúcar e uma xícara de chá de água. Em seguida, aqueça os ingredientes no fogo. Adicione a calda após tirar o bolo do forno.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-319941557.jpg" alt="Caponata de casca de banana" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Caponata de casca de banana</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>6 bananas verdes com casca</li><li>½ pimentão vermelho</li><li>½ pimentão amarelo</li><li>5 dentes de alho</li><li>2 tomates</li><li>1 limão</li><li>2 colheres (sopa) de passas brancas e pretas</li><li>50 g de amêndoas</li><li>½ maço de manjericão</li><li>Sal a gosto</li><li>Pimenta-do-reino a gosto</li><li>Azeite a gosto</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Cozinhe a banana verde em panela de pressão por 10 min. Retire logo após o cozimento. Pique a casca da banana e reserve. Em uma travessa, disponha o tomate, pimentão vermelho, pimentão amarelo, os dentes de alho, as casca da banana e as passas. Tempere com azeite e sal e leve para assar. Ao retirar do forno, decore com amêndoas e manjericão.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-1105043105.jpg" alt="Torrada com abacate e semente de abÃ³bora" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Torrada com abacate e semente de abÃ³bora</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>1 pão de forma</li><li>1/2 abacate cortado em rodelas</li><li>1 colher de sopa de requeijão</li><li>sal, azeite e pimenta a gosto</li><li>sementes de abóbora a gosto</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Passe o requeijão na fatia de pão e tempere com sal e pimenta a gosto. Em seguida, acrescente rodelas de abacate. Jogue por cima fio de azeite e as sementes de abóbora.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-1317586310.jpg" alt="Brigadeiro de casca de banana" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Brigadeiro de casca de banana</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>3 unidades de casca de banana em tiras</li><li>1 xícara (chá) água</li><li>1 xícara (chá) de açúcar</li><li>2 colheres (sopa) de margarina</li><li>4 colheres (sopa) de farinha de trigo</li><li>1 xícara (chá) de leite morno</li><li>1 xícara (chá) de leite em pó</li><li>2 colheres (sopa) achocolatado</li><li>1 xícara (chá) de chocolate granulado</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Numa panela, coloque as cascas de banana com o açúcar e cozinhe até ficar pastoso. Acrescente os demais ingredientes, exceto o chocolate granulado, e mexa até desprender do fundo da panela. Coloque num prato e deixe esfriar. Faça bolinhas, passe-as no chocolate granulado e coloque-as em forminhas apropriadas.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-1334167109.jpg" alt="Geleia de casca de mamÃ£o" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Geleia de casca de mamÃ£o</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>Cascas de 2 mamãos</li><li>1 xícara de água</li><li>1 e 1/2 xícara de açúcar</li><li>1 pau de canela</li><li>2 cravos</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Bata as cascas com a água no liquidificador. Leve ao fogo com o açúcar, a canela e os cravos, cozinhando em fogo brando e mexendo sempre. Estará pronto quando tiver o ponto de geléia.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+        <article class="recipe-card">
+            <div class="image-wrapper">
+                <img src="https://www.guiadasemana.com.br/contentFiles/image/opt_w800h500/2019/08/FEA/64211_shutterstock-1477319021.jpg" alt="Doce de casca de banana" loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="content-wrapper">
+                <h2 class="recipe-title">Doce de casca de banana</h2>
+                
+                <h3 class="section-title">Ingredientes</h3>
+                <ul class="ingredients-list">
+                    <li>Casca de 6 bananas nanicas</li><li>2 xícaras de açúcar</li><li>1 xícara de água</li><li>1 colher (sopa) de suco de limão</li><li>4 cravos</li><li>2 pedaços de canela em pau</li>
+                </ul>
+                
+                <h3 class="section-title">Preparo</h3>
+                <div class="instructions-text">
+                    <p>Numa panela média, junte as cascas de banana e cubra com água. Leve ao fogo médio e deixe ferver por cinco minutos ou até ficarem macias. Escorra-as e corte-as em pedaços. Bata no liquidificador até obter um purê. Coloque novamente na panela e junte os demais ingredientes. Leve ao fogo médio, com a panela semitampada, mexendo às vezes, por cerca de 35 minutos ou até a mistura soltar do fundo. Retire do fogo e deixe esfriar.</p>
+                </div>
+            </div>
+            
+        </article>
+    
+    </div>
+    <script>
+        // Hide scroll indicator on first scroll
+        const container = document.getElementById('container');
+        const indicator = document.getElementById('indicator');
+        if(container && indicator) {
+            container.addEventListener('scroll', () => {
+                if(container.scrollTop > 50) {
+                    indicator.classList.add('hidden-indicator');
+                }
+            }, { once: true });
+        }
+    </script>
+</body>
+</html>
